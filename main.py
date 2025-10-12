@@ -90,6 +90,9 @@ def Forest_Simulator_1P(Forest, mode):
                 else:
                     fire = CPU_Turn_Medium(i, Forest)
                 Forest[i].state = fire
+            ## end early if win condition is met
+            if win_condition(Forest):
+                break
                 
 
 if __name__ == "__main__":
