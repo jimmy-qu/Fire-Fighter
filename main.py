@@ -97,54 +97,64 @@ def Forest_Simulator_1P(Forest, mode):
 
 if __name__ == "__main__":
 
-    ## Initial Setup
-    print("Firefighter and Pyromaniac Simulation")
-    print("How many trees: ")
-    tree_count = int(input())
-    Forest = [tree() for _ in range(tree_count)]
+    game = True
+    while (game = True):
+        ## Initial Setup
+        print("Firefighter and Pyromaniac Simulation")
+        print("How many trees: ")
+        tree_count = int(input())
+        Forest = [tree() for _ in range(tree_count)]
 
-    ## Start with some trees on fire
-    print(f"How many trees are on fire given {len(Forest)} trees: ")
-    start_fire = int(input())
-    while start_fire > len(Forest):
-        print("Number of trees on fire cannot exceed total number of trees. Please enter again:")
+        ## Start with some trees on fire
+        print(f"How many trees are on fire given {len(Forest)} trees: ")
         start_fire = int(input())
-        if start_fire < 1:
-            print("Number of trees on fire must be at least 1. Please enter again:")
+        while start_fire > len(Forest):
+            print("Number of trees on fire cannot exceed total number of trees. Please enter again:")
             start_fire = int(input())
+            if start_fire < 1:
+                print("Number of trees on fire must be at least 1. Please enter again:")
+                start_fire = int(input())
 
-    for x in range(start_fire):
-        while not Forest[x].state:
-            x = random.randint(0, len(Forest)-1)
-        Forest[x].state = False
+        for x in range(start_fire):
+            while not Forest[x].state:
+                x = random.randint(0, len(Forest)-1)
+            Forest[x].state = False
 
 
-    ## Choose Game Mode
-    print("Single Player Mode OR Multi Player Mode, choose 1 or 2: ")
-    mode = int(input())
-    while mode not in [1, 2]:
-        print("Invalid mode. Please choose 1 or 2: ")
+        ## Choose Game Mode
+        print("Single Player Mode OR Multi Player Mode, choose 1 or 2: ")
         mode = int(input())
+        while mode not in [1, 2]:
+            print("Invalid mode. Please choose 1 or 2: ")
+            mode = int(input())
 
-    ## Start Game Mode Single Player
-    if mode == 1:
+        ## Start Game Mode Single Player
+        if mode == 1:
 
-        ## Choose Difficulty
-        print("Choose Difficulty: Easy or Medium (e/m): ")
-        difficulty = input().lower()
-        while difficulty not in ['e', 'm']:
-            print("Invalid difficulty. Please choose e or m: ")
+            ## Choose Difficulty
+            print("Choose Difficulty: Easy or Medium (e/m): ")
             difficulty = input().lower()
+            while difficulty not in ['e', 'm']:
+                print("Invalid difficulty. Please choose e or m: ")
+                difficulty = input().lower()
 
-        print("Starting One Player Mode")
+            print("Starting One Player Mode")
 
-        if difficulty == 'e':
-            Forest_Simulator_1P(Forest, mode="easy")
+            if difficulty == 'e':
+                Forest_Simulator_1P(Forest, mode="easy")
+            else:
+                Forest_Simulator_1P(Forest, mode="medium")
         else:
-            Forest_Simulator_1P(Forest, mode="medium")
-    else:
-        print("Starting Two Player Mode")
-        Forest_Simulator_2P(Forest)
+            print("Starting Two Player Mode")
+            Forest_Simulator_2P(Forest)
 
-    print("--------------------------------------------------")
-    print("All fires have been removed! You win!")
+        print("--------------------------------------------------")
+        print("All fires have been removed! You win!")
+
+        print("Do you want to play again? (y/n): ")
+        answer = input().lower()
+        if answer == 'y':
+            game = True
+        else:
+            game = False
+            print("Thank you for playing!")
